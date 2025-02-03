@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>cron.new</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 2rem;
+      }
+      label {
+        margin-right: 1rem;
+      }
+      select {
+        margin-right: 2rem;
+      }
+      #cronDisplay {
+        margin-top: 1rem;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>cron.new</h1>
+    <div>
+      <label>Minute:</label>
+      <select id="minute" onchange="updateCron()">
+        <option value="*">*</option>
+        <!-- 0 to 59 -->
+        <script>
+          for (let i = 0; i < 60; i++) {
+            document.write(`<option value='${i}'>${i}</option>`);
+          }
+        </script>
+      </select>
+
+      <label>Hour:</label>
+      <select id="hour" onchange="updateCron()">
+        <option value="*">*</option>
+        <!-- 0 to 23 -->
+        <script>
+          for (let i = 0; i < 24; i++) {
+            document.write(`<option value='${i}'>${i}</option>`);
+          }
+        </script>
+      </select>
+
+      <label>Day of Month:</label>
+      <select id="dayOfMonth" onchange="updateCron()">
+        <option value="*">*</option>
+        <!-- 1 to 31 -->
+        <script>
+          for (let i = 1; i <= 31; i++) {
+            document.write(`<option value='${i}'>${i}</option>`);
+          }
+        </script>
+      </select>
+
+      <label>Month:</label>
+      <select id="month" onchange="updateCron()">
+        <option value="*">*</option>
+        <!-- 1 to 12 -->
+        <script>
+          for (let i = 1; i <= 12; i++) {
+            document.write(`<option value='${i}'>${i}</option>`);
+          }
+        </script>
+      </select>
+
+      <label>Day of Week:</label>
+      <select id="dayOfWeek" onchange="updateCron()">
+        <option value="*">*</option>
+        <!-- 0 to 6 -->
+        <script>
+          for (let i = 0; i < 7; i++) {
+            document.write(`<option value='${i}'>${i}</option>`);
+          }
+        </script>
+      </select>
+    </div>
+
+    <div id="cronDisplay"></div>
+    <button onclick="copyCron()">Copy</button>
+
+    <script>
+      function updateCron() {
+        const m = document.getElementById("minute").value;
+        const h = document.getElementById("hour").value;
+        const dom = document.getElementById("dayOfMonth").value;
+        const mon = document.getElementById("month").value;
+        const dow = document.getElementById("dayOfWeek").value;
+        document.getElementById(
+          "cronDisplay"
+        ).innerText = `${m} ${h} ${dom} ${mon} ${dow}`;
+      }
+      function copyCron() {
+        const text = document.getElementById("cronDisplay").innerText;
+        navigator.clipboard.writeText(text);
+        alert("Copied: " + text);
+      }
+      updateCron();
+    </script>
+  </body>
+</html>
