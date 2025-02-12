@@ -3,102 +3,172 @@
   <head>
     <meta charset="UTF-8" />
     <title>cron.new</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        margin: 2rem;
-      }
-      label {
-        margin-right: 1rem;
-      }
-      select {
-        margin-right: 2rem;
-      }
-      #cronDisplay {
-        margin-top: 1rem;
-        font-weight: bold;
-      }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   </head>
-  <body>
-    <h1>cron.new</h1>
-    <div>
-      <label>Minute:</label>
-      <select id="minute" onchange="updateCron()">
-        <option value="*">*</option>
-        <!-- 0 to 59 -->
-        <script>
-          for (let i = 0; i < 60; i++) {
-            document.write(`<option value='${i}'>${i}</option>`);
-          }
-        </script>
-      </select>
+  <body class="min-h-screen p-4 md:p-8">
+    <div class="max-w-5xl mx-auto flex flex-col gap-8">
+      <div class="flex flex-col gap-2">
+        <h1 class="text-3xl font-bold text-gray-800">cron.new</h1>
+        <p class="text-gray-600">
+          Generate cron expressions easily. Select values for each time unit or
+          use * for "every" value.
+        </p>
+      </div>
 
-      <label>Hour:</label>
-      <select id="hour" onchange="updateCron()">
-        <option value="*">*</option>
-        <!-- 0 to 23 -->
-        <script>
-          for (let i = 0; i < 24; i++) {
-            document.write(`<option value='${i}'>${i}</option>`);
-          }
-        </script>
-      </select>
+      <div class="flex flex-col justify-around md:flex-row gap-4">
+        <div class="flex gap-2 items-center justify-between md:justify-center">
+          <label
+            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+          >
+            Minute:
+          </label>
+          <select
+            id="minute"
+            onchange="updateCron()"
+            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+          >
+            <option value="*">*</option>
+            <!-- 0 to 59 -->
+            <script>
+              for (let i = 0; i < 60; i++) {
+                document.write(`<option value='${i}'>${i}</option>`)
+              }
+            </script>
+          </select>
+        </div>
 
-      <label>Day of Month:</label>
-      <select id="dayOfMonth" onchange="updateCron()">
-        <option value="*">*</option>
-        <!-- 1 to 31 -->
-        <script>
-          for (let i = 1; i <= 31; i++) {
-            document.write(`<option value='${i}'>${i}</option>`);
-          }
-        </script>
-      </select>
+        <div class="flex gap-2 items-center justify-between md:justify-center">
+          <label
+            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+          >
+            Hour:
+          </label>
+          <select
+            id="hour"
+            onchange="updateCron()"
+            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+          >
+            <option value="*">*</option>
+            <!-- 0 to 23 -->
+            <script>
+              for (let i = 0; i < 24; i++) {
+                document.write(`<option value='${i}'>${i}</option>`)
+              }
+            </script>
+          </select>
+        </div>
 
-      <label>Month:</label>
-      <select id="month" onchange="updateCron()">
-        <option value="*">*</option>
-        <!-- 1 to 12 -->
-        <script>
-          for (let i = 1; i <= 12; i++) {
-            document.write(`<option value='${i}'>${i}</option>`);
-          }
-        </script>
-      </select>
+        <div class="flex gap-2 items-center justify-between md:justify-center">
+          <label
+            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+          >
+            Day:
+          </label>
+          <select
+            id="dayOfMonth"
+            onchange="updateCron()"
+            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+          >
+            <option value="*">*</option>
+            <!-- 1 to 31 -->
+            <script>
+              for (let i = 1; i <= 31; i++) {
+                document.write(`<option value='${i}'>${i}</option>`)
+              }
+            </script>
+          </select>
+        </div>
 
-      <label>Day of Week:</label>
-      <select id="dayOfWeek" onchange="updateCron()">
-        <option value="*">*</option>
-        <!-- 0 to 6 -->
-        <script>
-          for (let i = 0; i < 7; i++) {
-            document.write(`<option value='${i}'>${i}</option>`);
-          }
-        </script>
-      </select>
+        <div class="flex gap-2 items-center justify-between md:justify-center">
+          <label
+            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+          >
+            Month:
+          </label>
+          <select
+            id="month"
+            onchange="updateCron()"
+            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+          >
+            <option value="*">*</option>
+            <!-- 1 to 12 -->
+            <script>
+              for (let i = 1; i <= 12; i++) {
+                document.write(`<option value='${i}'>${i}</option>`)
+              }
+            </script>
+          </select>
+        </div>
+
+        <div class="flex gap-2 items-center justify-between md:justify-center">
+          <label
+            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+          >
+            Weekday:
+          </label>
+          <select
+            id="dayOfWeek"
+            onchange="updateCron()"
+            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+          >
+            <option value="*">*</option>
+            <!-- 0 to 6 -->
+            <script>
+              for (let i = 0; i < 7; i++) {
+                document.write(`<option value='${i}'>${i}</option>`)
+              }
+            </script>
+          </select>
+        </div>
+      </div>
+
+      <div class="bg-gray-100 p-4 rounded-lg">
+        <p class="text-sm text-gray-600 mb-2">Generated Cron Expression:</p>
+        <code id="cronDisplay" class="font-mono text-lg"></code>
+      </div>
+
+      <button
+        onclick="copyCron()"
+        class="self-end flex items-center gap-2 bg-[#006239] text-white px-4 py-2 rounded hover:bg-[#3ecf8e] transition-colors cursor-pointer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-copy"
+        >
+          <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+        </svg>
+
+        Copy to Clipboard
+      </button>
     </div>
-
-    <div id="cronDisplay"></div>
-    <button onclick="copyCron()">Copy</button>
 
     <script>
       function updateCron() {
-        const m = document.getElementById("minute").value;
-        const h = document.getElementById("hour").value;
-        const dom = document.getElementById("dayOfMonth").value;
-        const mon = document.getElementById("month").value;
-        const dow = document.getElementById("dayOfWeek").value;
+        const m = document.getElementById('minute').value
+        const h = document.getElementById('hour').value
+        const dom = document.getElementById('dayOfMonth').value
+        const mon = document.getElementById('month').value
+        const dow = document.getElementById('dayOfWeek').value
         document.getElementById(
-          "cronDisplay"
-        ).innerText = `${m} ${h} ${dom} ${mon} ${dow}`;
+          'cronDisplay'
+        ).innerText = `${m} ${h} ${dom} ${mon} ${dow}`
       }
       function copyCron() {
-        const text = document.getElementById("cronDisplay").innerText;
-        navigator.clipboard.writeText(text);
-        alert("Copied: " + text);
+        const text = document.getElementById('cronDisplay').innerText
+        navigator.clipboard.writeText(text)
+        alert('Copied: ' + text)
       }
-      updateCron();
+      updateCron()
     </script>
   </body>
 </html>
