@@ -11,8 +11,19 @@
       <div class="flex flex-col gap-2">
         <h1 class="text-3xl font-bold text-gray-800">cron.new</h1>
         <p class="text-gray-600">
-          Generate cron expressions easily. Select values for each time unit or
-          use * for "every" value.
+          Generate cron expressions for scheduling jobs on Unix-like systems.
+          Cron allows you to schedule commands or scripts to run periodically at
+          fixed times, dates, or intervals. Each field represents a unit of time
+          - use specific values or * for "every" value.
+        </p>
+        <p class="text-gray-600">
+          <a
+            href="https://en.wikipedia.org/wiki/Cron"
+            target="_blank"
+            class="text-[#006239] hover:text-[#3ecf8e] underline"
+          >
+            Learn more about cron on Wikipedia →
+          </a>
         </p>
       </div>
 
@@ -115,8 +126,19 @@
             <option value="*">*</option>
             <!-- 0 to 6 -->
             <script>
+              const days = [
+                'Sunday',
+                'Monday',
+                'Tuesday',
+                'Wednesday',
+                'Thursday',
+                'Friday',
+                'Saturday',
+              ]
               for (let i = 0; i < 7; i++) {
-                document.write(`<option value='${i}'>${i}</option>`)
+                document.write(
+                  `<option value='${i}'>${i} (${days[i]})</option>`
+                )
               }
             </script>
           </select>
