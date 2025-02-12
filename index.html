@@ -7,9 +7,11 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
   </head>
   <body class="min-h-screen p-4 md:p-8">
-    <div class="max-w-5xl mx-auto flex flex-col gap-8">
+    <div class="max-w-5xl mx-auto flex flex-col gap-10">
       <div class="flex flex-col gap-2">
-        <h1 class="text-3xl font-bold text-gray-800">cron.new</h1>
+        <h1 class="text-3xl font-bold text-gray-800">
+          cron.new &mdash; Generate Cron Expressions
+        </h1>
         <p class="text-gray-600">
           Generate cron expressions for scheduling jobs on Unix-like systems.
           Cron allows you to schedule commands or scripts to run periodically at
@@ -27,151 +29,164 @@
         </p>
       </div>
 
-      <div class="flex flex-col justify-around md:flex-row gap-4">
-        <div class="flex gap-2 items-center justify-between md:justify-center">
-          <label
-            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
-          >
-            Minute:
-          </label>
-          <select
-            id="minute"
-            onchange="updateCron()"
-            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
-          >
-            <option value="*">*</option>
-            <!-- 0 to 59 -->
-            <script>
-              for (let i = 0; i < 60; i++) {
-                document.write(`<option value='${i}'>${i}</option>`)
-              }
-            </script>
-          </select>
-        </div>
-
-        <div class="flex gap-2 items-center justify-between md:justify-center">
-          <label
-            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
-          >
-            Hour:
-          </label>
-          <select
-            id="hour"
-            onchange="updateCron()"
-            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
-          >
-            <option value="*">*</option>
-            <!-- 0 to 23 -->
-            <script>
-              for (let i = 0; i < 24; i++) {
-                document.write(`<option value='${i}'>${i}</option>`)
-              }
-            </script>
-          </select>
-        </div>
-
-        <div class="flex gap-2 items-center justify-between md:justify-center">
-          <label
-            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
-          >
-            Day:
-          </label>
-          <select
-            id="dayOfMonth"
-            onchange="updateCron()"
-            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
-          >
-            <option value="*">*</option>
-            <!-- 1 to 31 -->
-            <script>
-              for (let i = 1; i <= 31; i++) {
-                document.write(`<option value='${i}'>${i}</option>`)
-              }
-            </script>
-          </select>
-        </div>
-
-        <div class="flex gap-2 items-center justify-between md:justify-center">
-          <label
-            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
-          >
-            Month:
-          </label>
-          <select
-            id="month"
-            onchange="updateCron()"
-            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
-          >
-            <option value="*">*</option>
-            <!-- 1 to 12 -->
-            <script>
-              for (let i = 1; i <= 12; i++) {
-                document.write(`<option value='${i}'>${i}</option>`)
-              }
-            </script>
-          </select>
-        </div>
-
-        <div class="flex gap-2 items-center justify-between md:justify-center">
-          <label
-            class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
-          >
-            Weekday:
-          </label>
-          <select
-            id="dayOfWeek"
-            onchange="updateCron()"
-            class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
-          >
-            <option value="*">*</option>
-            <!-- 0 to 6 -->
-            <script>
-              const days = [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday',
-              ]
-              for (let i = 0; i < 7; i++) {
-                document.write(
-                  `<option value='${i}'>${i} (${days[i]})</option>`
-                )
-              }
-            </script>
-          </select>
-        </div>
-      </div>
-
-      <div class="bg-gray-100 p-4 rounded-lg">
-        <p class="text-sm text-gray-600 mb-2">Generated Cron Expression:</p>
-        <code id="cronDisplay" class="font-mono text-lg"></code>
-      </div>
-
-      <button
-        onclick="copyCron()"
-        class="self-end flex items-center gap-2 bg-[#006239] text-white px-4 py-2 rounded hover:bg-[#3ecf8e] transition-colors cursor-pointer"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-copy"
+      <div class="flex flex-col gap-4">
+        <div
+          class="flex flex-col justify-around md:flex-row gap-4 bg-gray-50 p-6 rounded-lg"
         >
-          <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-          <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-        </svg>
+          <div
+            class="flex gap-2 items-center justify-between md:justify-center"
+          >
+            <label
+              class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+            >
+              Minute:
+            </label>
+            <select
+              id="minute"
+              onchange="updateCron()"
+              class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+            >
+              <option value="*">*</option>
+              <!-- 0 to 59 -->
+              <script>
+                for (let i = 0; i < 60; i++) {
+                  document.write(`<option value='${i}'>${i}</option>`)
+                }
+              </script>
+            </select>
+          </div>
 
-        Copy to Clipboard
-      </button>
+          <div
+            class="flex gap-2 items-center justify-between md:justify-center"
+          >
+            <label
+              class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+            >
+              Hour:
+            </label>
+            <select
+              id="hour"
+              onchange="updateCron()"
+              class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+            >
+              <option value="*">*</option>
+              <!-- 0 to 23 -->
+              <script>
+                for (let i = 0; i < 24; i++) {
+                  document.write(`<option value='${i}'>${i}</option>`)
+                }
+              </script>
+            </select>
+          </div>
+
+          <div
+            class="flex gap-2 items-center justify-between md:justify-center"
+          >
+            <label
+              class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+            >
+              Day:
+            </label>
+            <select
+              id="dayOfMonth"
+              onchange="updateCron()"
+              class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+            >
+              <option value="*">*</option>
+              <!-- 1 to 31 -->
+              <script>
+                for (let i = 1; i <= 31; i++) {
+                  document.write(`<option value='${i}'>${i}</option>`)
+                }
+              </script>
+            </select>
+          </div>
+
+          <div
+            class="flex gap-2 items-center justify-between md:justify-center"
+          >
+            <label
+              class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+            >
+              Month:
+            </label>
+            <select
+              id="month"
+              onchange="updateCron()"
+              class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+            >
+              <option value="*">*</option>
+              <!-- 1 to 12 -->
+              <script>
+                for (let i = 1; i <= 12; i++) {
+                  document.write(`<option value='${i}'>${i}</option>`)
+                }
+              </script>
+            </select>
+          </div>
+
+          <div
+            class="flex gap-2 items-center justify-between md:justify-center"
+          >
+            <label
+              class="text-gray-700 text-lg font-medium flex items-center md:justify-end"
+            >
+              Weekday:
+            </label>
+            <select
+              id="dayOfWeek"
+              onchange="updateCron()"
+              class="w-[85px] border border-gray-200 rounded-lg px-4 py-2 text-2xl font-mono bg-white hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-[#006239] focus:border-transparent"
+            >
+              <option value="*">*</option>
+              <!-- 0 to 6 -->
+              <script>
+                const days = [
+                  'Sunday',
+                  'Monday',
+                  'Tuesday',
+                  'Wednesday',
+                  'Thursday',
+                  'Friday',
+                  'Saturday',
+                ]
+                for (let i = 0; i < 7; i++) {
+                  document.write(
+                    `<option value='${i}'>${i} (${days[i]})</option>`
+                  )
+                }
+              </script>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-gray-100 p-4 rounded-lg">
+          <p class="text-sm text-gray-600 mb-2">Generated Cron Expression:</p>
+          <code id="cronDisplay" class="font-mono text-lg"></code>
+        </div>
+
+        <button
+          onclick="copyCron()"
+          class="self-end flex items-center gap-2 bg-[#006239] text-white px-4 py-2 rounded hover:bg-[#3ecf8e] transition-colors cursor-pointer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-copy"
+          >
+            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+          </svg>
+          Copy to Clipboard
+        </button>
+      </div>
     </div>
 
     <script>
